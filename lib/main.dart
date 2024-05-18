@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todoapp/view/products/product_list_view.dart';
+import 'package:todoapp/view/auth/login/login_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       defaultTransition: Transition.noTransition,
       transitionDuration: Duration(seconds: 0),
       debugShowCheckedModeBanner: false,
-      home: ProductListView(),
+      home: LoginView(),
     );
   }
 }

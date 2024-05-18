@@ -1,42 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todoapp/models/product.dart';
+import 'package:todoapp/core/components/buton/custom_buton.dart';
+import 'package:todoapp/models/products/product.dart';
 import 'package:todoapp/core/components/textfield/custom_styles.dart';
 import 'package:todoapp/view/products/product_list_view.dart';
 import 'package:todoapp/viewmodel/product_viewmodel.dart';
 
-class UpdateProductView extends StatefulWidget {
-  final String docId;
-  const UpdateProductView({super.key, required this.docId});
+class AddProductView extends StatefulWidget {
+  const AddProductView({super.key});
 
   @override
-  State<UpdateProductView> createState() => _UpdateProductViewState();
+  State<AddProductView> createState() => _AddProductViewState();
 }
 
-class _UpdateProductViewState extends State<UpdateProductView> {
+class _AddProductViewState extends State<AddProductView> {
   final ProductViewModel _productViewModel = Get.put(ProductViewModel());
 
   GlobalKey<FormState> formKey = GlobalKey();
   TextEditingController nameController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController imageController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    init();
-  }
-
-  init() async{
-    await _productViewModel.getProduct(widget.docId);
-    await loadFormData();
-  }
-
-  loadFormData(){
-    nameController.text = _productViewModel.product.value.productName!;
-    priceController.text = _productViewModel.product.value.money.toString();
-    imageController.text = _productViewModel.product.value.imageUrl!;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,30 +56,30 @@ class _UpdateProductViewState extends State<UpdateProductView> {
               ),
 
               const SizedBox(height: 16),
-          
-              ElevatedButton.icon(
-                onPressed: () async{
+              iconElevatedButon(
+                () async{
                   if(formKey.currentState!.validate()){
                     var model = Product(
-                      docId: widget.docId,
                       productName: nameController.text,
                       imageUrl: imageController.text,
                       money: int.parse(priceController.text),
                     );
 
-                    await _productViewModel.updateProduct(model);
+                    await _productViewModel.addProducts(model);
                     Get.offAll(() => const ProductListView() );
                   }
                 },
-                icon: const Icon(Icons.edit),
-                label: const Text('Güncelle'),
-              )
+                Icons.send,
+                'Ekle'
+              ),
             ],
           ),
         ),
       ),
     );
   }
+
+
 
 
 }

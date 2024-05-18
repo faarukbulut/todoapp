@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todoapp/core/components/buton/custom_buton.dart';
 import 'package:todoapp/core/components/card/custom_card.dart';
-import 'package:todoapp/models/product.dart';
-import 'package:todoapp/view/products/add_product.dart';
-import 'package:todoapp/view/products/update_product.dart';
+import 'package:todoapp/models/products/product.dart';
+import 'package:todoapp/view/products/add_product_view.dart';
+import 'package:todoapp/view/products/update_product_view.dart';
 import 'package:todoapp/viewmodel/product_viewmodel.dart';
 
 class ProductListView extends StatefulWidget {
@@ -79,19 +80,14 @@ class _ProductListViewState extends State<ProductListView> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              ElevatedButton(
-                onPressed: (){
+              normalElevatedButon(
+                (){
                   Get.back();
                   Get.to(() => const AddProductView());
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.indigo,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: const Text('Add Product', style: TextStyle(color: Colors.white)),
-              )
+                Colors.indigo,
+                'Add Product'
+              ),
             ],
           ),
         );
@@ -110,33 +106,26 @@ class _ProductListViewState extends State<ProductListView> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              ElevatedButton(
-                onPressed: (){
+
+              normalElevatedButon(
+                (){
                   Get.back();
                   Get.to(() => UpdateProductView(docId: product.docId!));
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: const Text('Update Product', style: TextStyle(color: Colors.white)),
+                Colors.green,
+                'Update Product'
               ),
-              ElevatedButton(
-                onPressed: () async{
+
+              normalElevatedButon(
+                () async{
                   Get.back();
                   await _productViewModel.deleteProduct(product.docId!);
                   Get.offAll(() => const ProductListView());
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: const Text('Delete Product', style: TextStyle(color: Colors.white)),
+                Colors.red,
+                'Delete Product'
               ),
+
             ],
           ),
         );
