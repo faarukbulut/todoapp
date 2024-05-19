@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todoapp/core/components/buton/custom_buton.dart';
 import 'package:todoapp/core/components/card/custom_card.dart';
+import 'package:todoapp/core/services/firebase_auth.dart';
 import 'package:todoapp/models/products/product.dart';
 import 'package:todoapp/view/products/add_product_view.dart';
 import 'package:todoapp/view/products/update_product_view.dart';
@@ -21,6 +22,7 @@ class _ProductListViewState extends State<ProductListView> {
   void initState() {
     super.initState();
     _productViewModel.listProducts();
+    print(AuthService.instance.cUser!.uid);
   }
 
   @override
